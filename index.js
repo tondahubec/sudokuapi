@@ -94,7 +94,7 @@ function candidates(str, responce) {
 
 // mezery 
 function replaceChar(str,space, responce) {
-    responce.seed = str.replace(new RegExp(".", space), str);
+    responce.seed = str.replace(/\./g, space);
     return;
 }
 
