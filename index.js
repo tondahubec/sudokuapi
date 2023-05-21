@@ -10,35 +10,35 @@ app.use(express.json())
 //list
 //grid
 //candidate
-app.post("/generate", (req, res) => {
+app.get("/generate", (req, res) => {
     var responce = {};
 
     const data = req.body;
-    const difficulty = data.diff;
-    if (!difficulty) {
+    const diff = data.difficulty;
+    if (!diff) {
         res.status(418).send({ message: "need to fill out diff" })
     }
-    var seed = difficultyf(difficulty, responce);
+    var seed = difficulty(diff, responce);
 
 
 
-    const candidate = data.candidate;
-    if (candidate == "true") {
+    const candidate = data.candidates;
+    if (candidate == true) {
         candidates(seed, responce);
     }
 
     const space = data.spaces;
     if (space) {
-        replaceChar(seed, responce);
+        replaceChar(seed,space, responce);
     }
 
-    const list = data.type;
-    if (list == "list") {
+    const list = data.list;
+    if (list == true) {
         to_list(seed, responce);
     }
 
     const grid = data.grid;
-    if (grid == "true") {
+    if (grid == false) {
         to_grid(seed, responce);
     }
 
@@ -56,7 +56,7 @@ app.listen(
 
 
 
-function difficultyf(str, responce) {
+function difficulty(str, responce) {
     var seed = ".";
     switch (str) {
         case "easy":
@@ -81,7 +81,7 @@ function difficultyf(str, responce) {
             res.status(418).send({ message: "fill in a valid diff" })
     }
     responce.seed = seed;
-    responce.difficultyr = str;
+    responce.difficulty = str;
     return seed;
 }
 
@@ -93,8 +93,8 @@ function candidates(str, responce) {
 }
 
 // mezery 
-function replaceChar(str, responce) {
-    responce.seed = str.replace(new RegExp(".", "g"), ":");
+function replaceChar(str,space, responce) {
+    responce.seed = str.replace(new RegExp(".", "g"), space);
     return;
 }
 
