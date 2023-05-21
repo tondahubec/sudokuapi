@@ -14,11 +14,11 @@ app.post("/generate", (req, res) => {
     var responce = {};
 
     const data = req.body;
-    const diff = data.diff;
-    if (!diff) {
+    const difficulty = data.diff;
+    if (!difficulty) {
         res.status(418).send({ message: "need to fill out diff" })
     }
-    var seed = difficulty(diff, responce);
+    var seed = difficultyf(difficulty, responce);
 
 
 
@@ -56,7 +56,7 @@ app.listen(
 
 
 
-function difficulty(str, responce) {
+function difficultyf(str, responce) {
     var seed = ".";
     switch (str) {
         case "easy":
@@ -81,7 +81,7 @@ function difficulty(str, responce) {
             res.status(418).send({ message: "fill in a valid diff" })
     }
     responce.seed = seed;
-    responce.difficulty = str;
+    responce.difficultyr = str;
     return seed;
 }
 
