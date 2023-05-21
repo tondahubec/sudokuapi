@@ -10,7 +10,7 @@ app.use(express.json())
 //list
 //grid
 //candidate
-app.get("/generate", (req, res) => {
+app.post("/generate", (req, res) => {
     var responce = {};
 
     const data = req.body;
@@ -38,7 +38,7 @@ app.get("/generate", (req, res) => {
     }
 
     const grid = data.grid;
-    if (grid == false) {
+    if (grid == true) {
         to_grid(seed, responce);
     }
 
@@ -94,7 +94,7 @@ function candidates(str, responce) {
 
 // mezery 
 function replaceChar(str,space, responce) {
-    responce.seed = str.replace(new RegExp(".", "g"), space);
+    responce.seed = str.replace(new RegExp(".", space), str);
     return;
 }
 
